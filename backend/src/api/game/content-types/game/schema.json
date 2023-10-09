@@ -1,0 +1,68 @@
+{
+  "kind": "collectionType",
+  "collectionName": "games",
+  "info": {
+    "singularName": "game",
+    "pluralName": "games",
+    "displayName": "游戏",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "thumb": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "unique": true
+    },
+    "platforms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::platform.platform"
+    },
+    "released": {
+      "type": "date"
+    },
+    "genres": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::genre.genre"
+    },
+    "developer": {
+      "type": "string"
+    },
+    "publisher": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "media_scores": {
+      "type": "json"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "background_image": {
+      "type": "string"
+    },
+    "scores": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::score.score",
+      "mappedBy": "games"
+    }
+  }
+}

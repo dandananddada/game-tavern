@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_radar_score_",
+  "info": {
+    "displayName": "评分维度",
+    "icon": "chartBubble"
+  },
+  "options": {},
+  "attributes": {
+    "art": {
+      "type": "integer",
+      "required": true,
+      "max": 5,
+      "min": 0
+    },
+    "music": {
+      "type": "integer",
+      "required": true,
+      "max": 5,
+      "min": 0
+    },
+    "story": {
+      "type": "integer",
+      "max": 5,
+      "min": 1,
+      "required": true
+    },
+    "creativity": {
+      "type": "integer",
+      "required": true,
+      "max": 5,
+      "min": 1
+    },
+    "gameplay": {
+      "type": "integer",
+      "required": true,
+      "max": 5,
+      "min": 1
+    }
+  }
+}

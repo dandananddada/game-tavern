@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "scores",
+  "info": {
+    "singularName": "score",
+    "pluralName": "scores",
+    "displayName": "打分吧",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "games": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::game.game",
+      "inversedBy": "scores"
+    },
+    "score": {
+      "type": "decimal",
+      "max": 12,
+      "min": 0,
+      "default": 6,
+      "required": true
+    },
+    "comment": {
+      "type": "richtext"
+    },
+    "recommended": {
+      "type": "boolean"
+    },
+    "radar_score": {
+      "type": "json"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "perfect",
+        "done",
+        "playing",
+        "abort"
+      ]
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

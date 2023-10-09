@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_score_radar_scores",
+  "info": {
+    "displayName": "RadarScore",
+    "icon": "chartBubble"
+  },
+  "options": {},
+  "attributes": {
+    "art": {
+      "type": "integer",
+      "required": true,
+      "max": 5,
+      "min": 0
+    }
+  }
+}
