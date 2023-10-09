@@ -1,6 +1,13 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/_error": "pages/_error.js",
-  "/game/[slug]": "pages/game/[slug].js"
+  "/game/[slug]": "pages/game/[slug].js",
+  "/game/components/grade": "pages/game/components/grade.js",
+  "/game/components/radar": "pages/game/components/radar.js",
+  "/game/components/rating": "pages/game/components/rating.js",
+  "/games/components/logo": "pages/games/components/logo.js",
+  "/games/components/platform": "pages/games/components/platform.js",
+  "/games": "pages/games.js",
+  "/": "pages/index.js",
+  "/_error": "pages/_error.js"
 }

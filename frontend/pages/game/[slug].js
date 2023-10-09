@@ -1,6 +1,6 @@
 "use client";
-import { useEffect } from 'react';
-import { Button, Avatar, Tabs, Tab } from "@nextui-org/react";
+import { useEffect, useState } from 'react';
+import { Button, Avatar, Tabs, Tab, Spinner } from "@nextui-org/react";
 import { observer } from 'mobx-react-lite';
 import Cookies from 'js-cookie';
 import moment from "moment";
@@ -13,16 +13,35 @@ import Login from '../../components/login';
 import { PlusIcon } from '../../components/icons';
 
 import { ajaxAPI, fetchAPI } from "../../lib/api"
-import store from './store';
+import store from '../../store/game';
 
-const Game = ({ game, scores }) => {
+const Game = ({ slug }) => {
   const { isLogin, shouldLogin } = store
+
+  const [game, setGame] = useState()
+  const [scores, setScores] = useState()
+
+  const init = async () => {
+    const game = await ajaxAPI(`/games/${slug}`)
+    const developers = game.developers.map(i => i.name)
+    const publishers = game.publishers.map(i => i.name)
+    const scoresRes = await fetchAPI(`/scores/game`, { game: slug })
+    const scores = scoresRes.results
+    setGame({
+      ...game,
+      released: game.released.split('-').join('.'),
+      developer: developers.join(', '),
+      publisher: publishers.join(', ')
+    })
+    setScores(scores)
+  }
 
   useEffect(() => {
     const isAuthed = (![undefined, null, ''].includes(Cookies.get('jwt')))
     store.update({
       isLogin: isAuthed, shouldLogin: !isAuthed
     })
+    init()
   }, [])
 
   const grade = () => {
@@ -43,6 +62,12 @@ const Game = ({ game, scores }) => {
   const afterGrade = (score) => {
     scores.unshift(score)
     store.update('shouldGrade', false)
+  }
+
+  if (!game) {
+    return <div className="w-full flex justify-center mt-60">
+      <Spinner size="lg" />
+    </div>
   }
 
   return (<div className="dark">
@@ -151,40 +176,11 @@ const Game = ({ game, scores }) => {
 
 export async function getServerSideProps(ctx) {
   const slug = ctx.query.slug
-  const game = await ajaxAPI(`/games/${slug}`)
-  const developers = game.developers.map(i => i.name)
-  const publishers = game.publishers.map(i => i.name)
-  const scoresRes = await fetchAPI(`/scores/game`, { game: slug })
-  const scores = scoresRes.results
-  // const { name, released, background_image, platforms, genres } = game
-
   return {
     props: {
-      game: {
-        ...game,
-        released: game.released.split('-').join('.'),
-        developer: developers.join(', '),
-        publisher: publishers.join(', ')
-      },
-      scores
+      slug
     }
   }
 }
-
-// export async function getStaticPaths() {
-//   return {
-//     paths: [
-//       { params: { slug: [''] } },
-//     ],
-//     fallback: true,
-//   }
-// }
-
-// export async function getStaticProps({ params }) {
-//   return {
-//     props: {  },
-//     revalidate: 1,
-//   }
-// }
 
 export default observer(Game)

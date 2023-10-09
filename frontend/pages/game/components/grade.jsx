@@ -14,7 +14,7 @@ import moment from "moment";
 
 import Rating from './rating';
 
-import store from '../store';
+import store from '../../../store/game';
 
 function Grade({ game, afterGrade }) {
   const { shouldGrade } = store
