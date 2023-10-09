@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/LlqmRoBfdhjAowdof-Ug5/_buildManifest.js",
-    "static/LlqmRoBfdhjAowdof-Ug5/_ssgManifest.js"
+    "static/hWG28e4pQxJw9CTidKtCD/_buildManifest.js",
+    "static/hWG28e4pQxJw9CTidKtCD/_ssgManifest.js"
   ],
   "pages": {
     "/": [
@@ -40,7 +40,7 @@
       "static/chunks/371-d749cf36d188e2fb156c.js",
       "static/chunks/75-9fa30f9b2eac40adbba2.js",
       "static/css/34bcbb243d0f3669f127.css",
-      "static/chunks/pages/game/[slug]-eaa9e648afb2ac3d3354.js"
+      "static/chunks/pages/game/[slug]-47116dc2df3c7973bb4b.js"
     ],
     "/game/components/grade": [
       "static/chunks/webpack-9fc9ab40a062a7008df3.js",
@@ -51,7 +51,7 @@
       "static/chunks/242-5605492ea8b5fc5fce0c.js",
       "static/chunks/668-0536775afba4f3787c0b.js",
       "static/chunks/789-9a9366a2fe7bc15e5607.js",
-      "static/chunks/pages/game/components/grade-57325bf68f23fa2f0306.js"
+      "static/chunks/pages/game/components/grade-1a5012972cb0fd3c2079.js"
     ],
     "/game/components/radar": [
       "static/chunks/webpack-9fc9ab40a062a7008df3.js",
@@ -75,7 +75,7 @@
       "static/chunks/242-5605492ea8b5fc5fce0c.js",
       "static/chunks/694-0e9ae2e9874d275754f2.js",
       "static/chunks/75-9fa30f9b2eac40adbba2.js",
-      "static/chunks/pages/games-eb78de18bbf428a50cb0.js"
+      "static/chunks/pages/games-90885a5951449ca6179b.js"
     ],
     "/games/components/logo": [
       "static/chunks/webpack-9fc9ab40a062a7008df3.js",

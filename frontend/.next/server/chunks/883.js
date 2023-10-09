@@ -27,7 +27,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  */
 
 function getStrapiURL(path = "") {
-  return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"}${path}`;
+  return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://9guan.games"}${path}`;
 }
 /**
  * Helper to make GET requests to Strapi API endpoints
