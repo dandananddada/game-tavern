@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import moment from "moment";
 import { isEmpty, find } from 'lodash';
 
-import Platform from '../games/components/Platform';
+import Platform from '../games/components/platform';
 import GradeModal from "./components/grade";
 import RadarScore from './components/radar';
 import Login from '../../components/login';
