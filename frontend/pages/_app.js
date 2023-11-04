@@ -2,7 +2,7 @@ import App from "next/app"
 import Head from "next/head"
 import "../assets/css/style.css"
 import { createContext } from "react"
-import {NextUIProvider, useSSR} from "@nextui-org/react";
+import {NextUIProvider } from "@nextui-org/react";
 import Layout from '../components/layout';
 
 

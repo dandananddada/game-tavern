@@ -7,30 +7,32 @@ import {
 import { useForm } from "react-hook-form";
 import { fetchAPI } from '../lib/api';
 
-const Login = ({ isOpen: shouldOpen = false, onClose, afterLogin, onRegist }) => {
+const Register = ({ isOpen: shouldOpen = false, onClose, afterRegister }) => {
   const { onOpen } = useDisclosure();
   const [isOpen, setIsOpen] = useState(shouldOpen)
   const [scrollBehavior] = React.useState("inside");
   const { reset, register, handleSubmit, formState: { errors }, setError } = useForm();
 
-  const login = formData => {
-    fetchAPI('/auth/local', {}, {
+  const submit = formData => {
+    fetchAPI('/auth/local/register', {}, {
       method: 'POST',
       body: JSON.stringify(formData)
     }).then(data => {
       if (data.jwt) {
-        afterLogin(data.jwt, data.user)
+        afterRegister(data.jwt, data.user)
         onClose()
       }
     })
-    .catch(_e => {
-      setError('password', { type: 'custom', message: '密码错误' })
+    .catch(e => {
+      const { details, message } = e?.error
+      setError('email', { type: 'custom', message })
+      if (details?.errors.length) {
+        details.errors.forEach(error => {
+          const [key] = error.path
+          setError(key, { type: 'custom', message: error.message })
+        })
+      }
     })
-  }
-
-  const regist = () => {
-    onClose();
-    onRegist();
   }
 
   useEffect(() => {
@@ -50,21 +52,22 @@ const Login = ({ isOpen: shouldOpen = false, onClose, afterLogin, onRegist }) =>
     >
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">
-          登录
+          注册
         </ModalHeader>
-        <form onSubmit={handleSubmit(login)}>
+        <form onSubmit={handleSubmit(submit)}>
           <ModalBody>
-            <Input {...register("identifier")} type="email" label="账号" />
-            <Input {...register("password")} type="password" label="密码" 
-              errorMessage={ errors?.password?.message || '' }
+            <Input {...register("email")} isRequired type="email" label="账号" description="输入常用邮箱" errorMessage={ errors?.email?.message } />
+            <Input {...register("username")} isRequired label="昵称" errorMessage={ errors?.username?.message } />
+            <Input {
+              ...register("password", { min: 6 })}
+              isRequired type="password" label="密码"
+              description="密码长度不得少于六位"
+              errorMessage={ errors?.password?.message }
             />
           </ModalBody>
           <ModalFooter>
             <Button type="submit" color="primary">
-              登录 
-            </Button>
-            <Button color="default" variant="light" onPress={regist}>
-              注册 
+              注册   
             </Button>
             <Button color="default" variant="light" onPress={onClose}>
               取消
@@ -76,4 +79,4 @@ const Login = ({ isOpen: shouldOpen = false, onClose, afterLogin, onRegist }) =>
   )
 }
 
-export default Login 
+export default Register 

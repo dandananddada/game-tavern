@@ -8,6 +8,7 @@ import qs from "qs"
 export function getStrapiURL(path = "") {
   return `${
     process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://9guan.games"
+    // process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"
   }${path}`
 }
 
@@ -35,13 +36,11 @@ export async function fetchAPI(path, urlParamsObject = {}, options = {}) {
 
   // Trigger API call
   const response = await fetch(requestUrl, mergedOptions)
-
   // Handle response
-  if (!response.ok) {
-    console.error(response.statusText)
-    throw new Error(`An error occured please try again`)
-  }
   const data = await response.json()
+  if (!response.ok) {
+    return Promise.reject(data)
+  }
   return data
 }
 

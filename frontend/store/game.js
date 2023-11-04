@@ -3,6 +3,7 @@ import { makeAutoObservable, action } from 'mobx';
 const store = makeAutoObservable({
   _isLogin: false,
   _shouldLogin: false,
+  _shouldRegist: false,
   _shouldGrade: false,
 
   get isLogin() {
@@ -11,6 +12,10 @@ const store = makeAutoObservable({
 
   get shouldLogin () {
     return this._shouldLogin
+  },
+
+  get shouldRegist () {
+    return this._shouldRegist
   },
 
   get shouldGrade () {

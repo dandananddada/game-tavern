@@ -58,8 +58,6 @@ function Grade({ game, afterGrade }) {
     }
   }
 
-  console.log(errors, '...');
-
   return (
     <div className="flex flex-col gap-2">
       <div className="text-right m-4">
@@ -82,6 +80,7 @@ function Grade({ game, afterGrade }) {
                 </ModalHeader>
                 <ModalBody>
                     <Input 
+                      isRequired
                       {...register("score", { min: 0, max: 10 })} 
                       type="number" label="评分"
                       description="评分在 0 - 10 之间，支持一位小数"
@@ -89,8 +88,8 @@ function Grade({ game, afterGrade }) {
                     />
                     <Textarea {...register("comment")} label="评价" />
                     <Accordion>
-                      <AccordionItem title={<span className="text-base">更多</span>}>
-                        <Rating label="美术" name="art" control={control}></Rating>
+                      <AccordionItem title={<span className="text-small">更多</span>}>
+                        <Rating label="美术" { ...register("art", { required: false }) } control={control}></Rating>
                         <Rating label="音乐" name="music" control={control} className="mt-4"></Rating>
                         <Rating label="叙事" name="story" control={control} className="mt-4"></Rating>
                         <Rating label="创新" name="creativity" control={control} className="mt-4"></Rating>

@@ -23,6 +23,12 @@ const Platform = ({ storeSlug }) => {
 };
 
 const PlatformWrapper = ({ storeSlug, className }) => {
+  if (![
+    'playstation-store', 'nintendo', 'xbox-store',
+    'steam', 'epic-games', 'google-play', 'apple-appstore'
+  ].includes(storeSlug)) {
+    return null
+  }
   return (<div className={className}>
     <Platform storeSlug={storeSlug} />
   </div>)

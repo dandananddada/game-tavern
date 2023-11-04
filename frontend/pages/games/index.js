@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState }  from "react"
+import React, { useMemo, useState }  from "react"
 import Link from 'next/link';
 import { debounce  } from 'lodash';
 import { Input, Skeleton, Card } from "@nextui-org/react";
@@ -93,21 +93,21 @@ const Article = ({ platforms, games: initGames }) => {
             <h1 className="text-lg text-white md:text-xl">已公开游戏</h1>
           </div>
           { games.map((game, idx) => (
-            <Link href={`/game/${game.slug}`} key={game.id}>
-              <div className={`w-full mb-10 col-span-1 ${idx === 0 ? 'col-end-2' : null}`}>
-                <div
+            <div className={`w-full mb-10 col-span-1 ${idx === 0 ? 'col-end-2' : null}`}>
+              <Link href={`/game/${game.slug}`} key={game.id}>
+                <Card isPressable
                   className="w-40 h-52 m-auto rounded bg-center bg-cover bg-no-repeat lg:w-[280px] lg:h-[300px]"
                   style={{
                     backgroundImage: `url(${game.background_image})`
                   }}
-                ></div>
-                <div className="text-center mt-3 text-white text-base lg:text-xl">{ game.name }</div>
-                <div className="text-center mt-1 text-white text-xs lg:text-sm">{ game.released }</div>
-                <div className="flex justify-center mt-1 lg:mt-[12px]">
-                  { (game.stores || []).map(({ store }) => (<Platform storeSlug={store.slug} className="mr-2" />)) }
-                </div>
+                ></Card>
+              </Link>
+              <div className="text-center mt-3 text-white text-base lg:text-xl">{ game.name }</div>
+              <div className="text-center mt-1 text-white text-xs lg:text-sm">{ game.released }</div>
+              <div className="flex justify-center mt-1 lg:mt-[12px]">
+                { (game.stores || []).map(({ store }) => (<Platform storeSlug={store.slug} className="mr-2" />)) }
               </div>
-            </Link>)
+            </div>)
           )}
         </div>
     </InfiniteScroll>

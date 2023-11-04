@@ -1,4 +1,6 @@
 import React from "react"
+import UserAvatar from './user-avatar';
+// import userStore from '../store/user';
 
 const SiteName = ({ className }) => {
   return <div className={className}>
@@ -10,8 +12,11 @@ const SiteName = ({ className }) => {
 
 const Header = () => {
   return (
-    <header className="top-0 fixed w-full h-[68px] z-50 bg-[#201F25]" data-uk-Headerbar>
+    <header className="fixed top-0 w-full justify-around h-[68px] z-50 bg-[#201F25]">
       <SiteName className="flex h-full justify-center items-center" />
+      {/* <div className="fixed float-right top-[16px] right-[16px]">
+        <UserAvatar size="sm" user={userStore.user} />
+      </div> */}
     </header>
   )
 }
