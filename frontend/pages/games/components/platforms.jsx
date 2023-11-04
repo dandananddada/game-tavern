@@ -1,4 +1,4 @@
-import { PS, NS, Steam, Xbox, Epic, Xbox360, Google, Apple } from './logo';
+import { PS, NS, Steam, Xbox, Epic, Google, Apple } from './logo';
 
 const Platform = ({ storeSlug }) => {
   if (['playstation-store'].includes(storeSlug)) {

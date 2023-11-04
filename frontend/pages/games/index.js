@@ -5,7 +5,7 @@ import { Input, Skeleton, Card } from "@nextui-org/react";
 import InfiniteScroll from 'react-infinite-scroller'
 
 import { ajaxAPI } from "../../lib/api"
-import Platform from './components/platform'
+import Platform from './components/platforms'
 import { SearchIcon } from "../../components/icons"
 
 
