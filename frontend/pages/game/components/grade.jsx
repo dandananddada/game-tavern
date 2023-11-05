@@ -13,6 +13,7 @@ import { useForm, Form } from "react-hook-form";
 import moment from "moment";
 
 import Rating from './rating';
+import Slider from './slider';
 
 import store from '../../../store/game';
 
@@ -79,12 +80,19 @@ function Grade({ game, afterGrade }) {
                   提交评分
                 </ModalHeader>
                 <ModalBody>
-                    <Input 
+                    <Slider 
+                      name="score"
+                      label="评分" 
                       isRequired
-                      {...register("score", { min: 0, max: 10 })} 
-                      type="number" label="评分"
-                      description="评分在 0 - 10 之间，支持一位小数"
+                      color="foreground"
+                      hideThumb={true}
+                      step={0.2} 
+                      maxValue={10} 
+                      minValue={0} 
+                      defaultValue={6}
+                      control={control} 
                       errorMessage={ errors.score ? '评分在 0 - 10 之间，支持一位小数' : '' }
+                      className="max-w-md"
                     />
                     <Textarea {...register("comment")} label="评价" />
                     <Accordion>

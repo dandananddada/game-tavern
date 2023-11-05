@@ -12,7 +12,7 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
-    "@nextui-org/react": "^2.1.13",
+    "@nextui-org/react": "^2.2.3",
     "@nextui-org/system": "^2.0.10",
     "@nextui-org/theme": "^2.1.9",
     "autoprefixer": "^10.4.16",

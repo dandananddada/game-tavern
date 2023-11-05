@@ -43,6 +43,7 @@ const Article = ({ platforms, games: initGames }) => {
   return (<>
     <div className="flex justify-end mx-6">
       <Input
+        size="sm"
         onValueChange={debounceFind}
         startContent={<SearchIcon></SearchIcon>}
       ></Input>
