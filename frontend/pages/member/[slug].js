@@ -30,10 +30,10 @@ const Member = ({ user, slug }) => {
   const [pagination, setPagination] = useState({})
 
   const hasMore = useMemo(() => {
-    const { page, pageSize, pageCount, total } = pagination
-    console.log(pageSize * (page - 1) + pageCount < total)
-    return pageSize * (page - 1) + pageCount < total
-  })
+    const { page, pageCount } = pagination
+    console.log(page < pageCount);
+    return page < pageCount
+  }, [pagination])
 
   const loadMore = async (page) => {
     if (!hasMore) return;

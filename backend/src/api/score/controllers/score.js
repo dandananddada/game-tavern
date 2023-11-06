@@ -47,7 +47,7 @@ module.exports = createCoreController('api::score.score', ({ strapi }) => ({
         },
       },
       pagination: {
-        start: (page - 1) * pageSize, limit: pageSize,
+        page, pageSize
       },
       sort: {
         id: 'DESC'
