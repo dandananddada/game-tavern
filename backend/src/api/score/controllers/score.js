@@ -37,14 +37,17 @@ module.exports = createCoreController('api::score.score', ({ strapi }) => ({
   },
 
   async byUser (ctx) {
-    const { email } = ctx.request.query
+    const { email, page, pageSize } = ctx.request.query
     const response = await  strapi.service('api::score.score').find({
       filters: {
         users_permissions_user: {
           email: {
             $eq: email
           }
-        }
+        },
+      },
+      pagination: {
+        start: (page - 1) * pageSize, limit: pageSize,
       },
       sort: {
         id: 'DESC'
