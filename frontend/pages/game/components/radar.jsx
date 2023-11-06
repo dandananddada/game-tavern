@@ -1,4 +1,6 @@
 import RadarChart from 'react-svg-radar-chart';
+import { Chip } from '@nextui-org/react';
+import { mean } from 'lodash';
 import 'react-svg-radar-chart/build/css/index.css'
 import radarStyle from './radar.module.css';
 
@@ -25,6 +27,7 @@ export default function Radar({ score }) {
     }
   ]
 
+
   const options = {
     scales: 5,
     dots: true,
@@ -45,12 +48,16 @@ export default function Radar({ score }) {
     })
   }
 
-  return (
+  return (<div className="flex items-end">
     <RadarChart
       captions={captions}
       data={data}
       size={250}
       options={options}
     />
+    <Chip size="small" className="mb-4">
+      {mean(Object.values(score))}
+    </Chip>
+  </div>
   )
 }

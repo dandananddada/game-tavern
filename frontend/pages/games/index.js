@@ -4,17 +4,20 @@ import { debounce  } from 'lodash';
 import { Input, Skeleton, Card } from "@nextui-org/react";
 import InfiniteScroll from 'react-infinite-scroller'
 
-import { ajaxAPI } from "../../lib/api"
+import { ajaxAPI, fetchAPI } from "../../lib/api"
 import Platform from './components/platform'
 import { SearchIcon } from "../../components/icons"
 
-
-const getGames = (page = 1) => {
-  return ajaxAPI('/games', { page, page_size: 20 });
+const getTavernGames = () => {
+  return fetchAPI('/games?sort=name:ASC')
 }
 
-const Article = ({ platforms, games: initGames }) => {
+const getGames = (page = 1) => {
+  return ajaxAPI('/games', { page, page_size: 20, metacritic: '60,100', ordering: '-released' });
+}
 
+const Article = ({ games: initGames }) => {
+  console.log(initGames);
   const [games, setGames] = useState(initGames)
   const [isFetch, setIsFetch] = useState(false)
   const [hasMore, setHasMore] = useState(true)
@@ -116,10 +119,14 @@ const Article = ({ platforms, games: initGames }) => {
   </>)
 }
 export async function getStaticProps({ params }) {
-  const gamesRes = await getGames()
-  const games = gamesRes.results
+  const gamesRes = await getTavernGames()
+  console.log(gamesRes);
+  const games = gamesRes.data
   return {
-    props: { platforms: [], games },
+    props: { platforms: [], games: games.map(game =>({
+      id: game.id,
+      ...game.attributes
+    })) },
     revalidate: 1,
   }
 }

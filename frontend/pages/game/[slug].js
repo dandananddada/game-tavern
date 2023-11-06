@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Button, Avatar, Tabs, Tab, Spinner } from "@nextui-org/react";
 import { observer } from 'mobx-react-lite';
 import Cookies from 'js-cookie';
@@ -127,7 +127,7 @@ const Game = ({ slug }) => {
                 `}>{ game.name }</div>
                 <div className="text-center text-light-black mt-1 lg:text-left">发售日期：{ game.released }</div>
                 <div className="flex justify-center mt-2 lg:justify-start">
-                  { game.stores.map(({ store }) => (<Platform storeSlug={store.slug} className="flex mt-4 mr-2" />)) }
+                  { game.stores.map(({ store }) => (<Platform storeSlug={store.slug} className="flex  mr-2" />)) }
                 </div>
                 <div className="text-left ml-4 lg:ml-0">
                   <div className="mt-5">
@@ -177,7 +177,7 @@ const Game = ({ slug }) => {
                     </div>
                   </div>
                   <div className="mt-2 flex justify-center items-center lg:col-span-1 lg:justify-end">
-                    <span className="text-md text-white">综合评分</span>
+                    <span className="text-md text-white">评分</span>
                     <div className="text-2xl text-white text-bold bg-apple-green ml-2 px-3 py-1/2 rounded">{score.score === 10 ? score.score : score.score.toFixed(1)}</div>
                   </div>
                   <div className="m-5 pb-6 border-b-1 border-b-[#4C4A57] last:border-b-0">

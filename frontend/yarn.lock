@@ -854,7 +854,7 @@
   dependencies:
     clsx "^1.2.1"
 
-"@nextui-org/system@2.0.12", "@nextui-org/system@^2.0.10":
+"@nextui-org/system@2.0.12":
   version "2.0.12"
   resolved "https://registry.yarnpkg.com/@nextui-org/system/-/system-2.0.12.tgz#ee1cbd13f18e1d58b590263a98b29419b4888c3d"
   integrity sha512-cNWIhwM7W6GCFm+D3it5V3q5nhfaaNV1tB0ob9BEhyr3/poQ1PNYc1ReWuNVkfjWzcaI9DJeVo6DmEeC6t8BfQ==
@@ -905,7 +905,7 @@
     "@react-types/tabs" "^3.3.3"
     scroll-into-view-if-needed "3.0.10"
 
-"@nextui-org/theme@2.1.12", "@nextui-org/theme@^2.1.9":
+"@nextui-org/theme@2.1.12":
   version "2.1.12"
   resolved "https://registry.yarnpkg.com/@nextui-org/theme/-/theme-2.1.12.tgz#3ef313be3fc22f06e3ae1ec76ae3d5aaaa35bafb"
   integrity sha512-eWzHWQ2c7r/rjgmlc9EckntT4FJgmZjZFxBqM0IYCoE06lVvBTvMhdfpJVLDz/3xgJ2Ga41bSMfs6g2jn+2z+Q==
