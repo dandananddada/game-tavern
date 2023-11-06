@@ -12,8 +12,8 @@ import {
 import { useForm, Form } from "react-hook-form";
 import moment from "moment";
 
-import Rating from './rating';
-import Slider from './slider';
+import Rating from '../../../components/scores/rating';
+import Slider from '../../../components/scores/slider';
 
 import store from '../../../store/game';
 

@@ -34,5 +34,23 @@ module.exports = createCoreController('api::score.score', ({ strapi }) => ({
       }
     })
     ctx.body = response
+  },
+
+  async byUser (ctx) {
+    const { email } = ctx.request.query
+    const response = await  strapi.service('api::score.score').find({
+      filters: {
+        users_permissions_user: {
+          email: {
+            $eq: email
+          }
+        }
+      },
+      sort: {
+        id: 'DESC'
+      },
+      populate: ['games']
+    })
+    ctx.body = response
   }
 }));

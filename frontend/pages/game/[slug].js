@@ -1,6 +1,8 @@
 "use client";
-import { useEffect, useMemo, useState } from 'react';
-import { Button, Avatar, Tabs, Tab, Spinner } from "@nextui-org/react";
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Button, Tabs, Tab, Spinner } from "@nextui-org/react";
+import { motion } from "framer-motion"
 import { observer } from 'mobx-react-lite';
 import Cookies from 'js-cookie';
 import moment from "moment";
@@ -8,7 +10,7 @@ import { isEmpty, find } from 'lodash';
 
 import Platform from '../games/components/platform';
 import GradeModal from "./components/grade";
-import RadarScore from './components/radar';
+import RadarScore from '../../components/scores/radar';
 import Login from '../../components/login';
 import Regist from '../../components/register';
 import UserAvatar from '../../components/user-avatar';
@@ -170,7 +172,11 @@ const Game = ({ slug }) => {
               <div className="grid grid-cols-1 mt-6">
                 { (scores || []).map(score => (<>
                   <div className="flex ml-4 lg:col-span-1">
-                    <UserAvatar user={score.users_permissions_user} />
+                    <motion.button whileTap={{ scale: 0.8 }}>
+                      <Link href={`/member/${score.users_permissions_user?.email}`} key={user.id}>
+                        <UserAvatar user={score.users_permissions_user} />
+                      </Link>
+                    </motion.button>
                     <div className="ml-2">
                       <div className="text-sm text-white">{ score.users_permissions_user?.username }</div>
                       <div className="text-sm text-light-black">{moment(score.createdAt).format('YYYY年MM月DD日 发表评论')}</div>

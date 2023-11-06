@@ -12,8 +12,6 @@ export default function ScoreSlider ({ label, name, control, ...props }) {
 
   const [color, setColor] = useState('foreground')
   const onChange = field => (v) => {
-    const color = computeColor(v)
-    console.log(v, color);
     setColor(computeColor(v))
     field.onChange(v)
   }

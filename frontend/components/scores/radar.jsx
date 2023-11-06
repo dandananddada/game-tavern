@@ -4,7 +4,7 @@ import { mean } from 'lodash';
 import 'react-svg-radar-chart/build/css/index.css'
 import radarStyle from './radar.module.css';
 
-export default function Radar({ score }) {
+export default function Radar({ score, showAverage = true }) {
   if (!score) return null
   const captions = {
     art: '美术',
@@ -48,16 +48,18 @@ export default function Radar({ score }) {
     })
   }
 
-  return (<div className="flex items-end">
+  return (<div className={`flex ${showAverage ? 'items-end' : 'items-center'} `}>
     <RadarChart
       captions={captions}
       data={data}
       size={250}
       options={options}
     />
-    <Chip size="small" className="mb-4">
-      {mean(Object.values(score))}
-    </Chip>
+    { showAverage && (
+      <Chip size="small" className="mb-4">
+        {mean(Object.values(score))}
+      </Chip>
+    ) }
   </div>
   )
 }
