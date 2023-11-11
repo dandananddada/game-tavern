@@ -9,13 +9,12 @@ export default function ScoreSlider ({ label, name, control, ...props }) {
     else if (value < 9) return 'bg-[#EBFF00]'
     else return 'bg-[#41FF3E]'
   }
-
   const [color, setColor] = useState('foreground')
+
   const onChange = field => (v) => {
     setColor(computeColor(v))
     field.onChange(v)
   }
-  console.log(color);
   return  <Controller
     control={control}
     name={name}
@@ -27,6 +26,7 @@ export default function ScoreSlider ({ label, name, control, ...props }) {
         classNames={{
           filler: color,
         }}
+        value={field?.value}
         { ...props }
       />
     </>)}

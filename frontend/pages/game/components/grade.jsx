@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { observer } from 'mobx-react-lite';
 import Cookies from 'js-cookie';
 import { fetchAPI } from "../../../lib/api"
@@ -6,8 +6,7 @@ import { fetchAPI } from "../../../lib/api"
 
 import {
   Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,
-  Button, useDisclosure, Input, Textarea, Divider, Image,
-  Accordion, AccordionItem
+  Button, Chip, Input, Textarea, Divider, Image,
 } from "@nextui-org/react";
 import { useForm, Form } from "react-hook-form";
 import moment from "moment";
@@ -18,8 +17,22 @@ import Slider from '../../../components/scores/slider';
 import store from '../../../store/game';
 
 function Grade({ game, afterGrade }) {
-  const { shouldGrade } = store
-  const { register, handleSubmit, control, formState: { errors } } = useForm();
+  const { shouldGrade, gameScore } = store
+  const { register, handleSubmit, setValue, control, formState: { errors } } = useForm();
+
+  useEffect(() => {
+    if (gameScore) {
+      console.log(gameScore);
+      setValue('comment', gameScore.comment)
+      setValue('art', gameScore.radar_score?.art)
+      setValue('music', gameScore.radar_score?.music)
+      setValue('story', gameScore.radar_score?.story)
+      setValue('creativity', gameScore.radar_score?.creativity)
+      setValue('gameplay', gameScore.radar_score?.gameplay)
+      setValue('score', gameScore.score)
+      setValue('id', gameScore.id)
+    }
+  }, [gameScore])
 
   const onOpenChange = (isOpen) => {
     store.update('shouldGrade', isOpen)
@@ -33,40 +46,56 @@ function Grade({ game, afterGrade }) {
     } = game
 
     const jwt = Cookies.get('jwt')
-    
-    const res = await fetchAPI('/score/grade', {}, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${jwt}`
-      },
-      body: JSON.stringify({
-        score, comment,
-        radar_score: {
-          art, music, story, creativity, gameplay
+
+    if (!isNaN(formData.id)) {
+      const res = await fetchAPI(`/scores/${formData.id}`, {}, {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt}`
         },
-        game: {
-          slug, name, description, background_image, publisher, developer,
-          released: moment(released),
-          platforms: platforms.map(({ id }) => (id)),
-          genres: genres.map(({ id }) => (id))
-        }
+        body: JSON.stringify({
+          data: {
+            id: formData.id,
+            score, comment,
+            radar_score: {
+              art, music, story, creativity, gameplay
+            }
+          }
+        })
       })
-    })
-    if (res.score) {
-      afterGrade({ score, comment, radar_score: 
-        { art, music, story, creativity, gameplay }
+      if (res.data.id) {
+        afterGrade(formData)
+      }
+    } else {
+      const res = await fetchAPI('/score/grade', {}, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        },
+        body: JSON.stringify({
+          score, comment,
+          radar_score: {
+            art, music, story, creativity, gameplay
+          },
+          game: {
+            slug, name, description, background_image, publisher, developer,
+            released: moment(released),
+            platforms: platforms.map(({ id }) => (id)),
+            genres: genres.map(({ id }) => (id))
+          }
+        })
       })
+      if (res.score) {
+        afterGrade({ score, comment, radar_score: 
+          { art, music, story, creativity, gameplay }
+        })
+      }
     }
   }
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="text-right m-4">
-        {/* { isLogin ? 
-          <Button size="sm" onPress={onOpen}>填写评分</Button> :
-          <Button size="sm" onPress={onLogin}>登录</Button>
-        } */}
-      </div>
       <Modal
         isOpen={shouldGrade}
         onOpenChange={onOpenChange}
@@ -80,9 +109,14 @@ function Grade({ game, afterGrade }) {
                   提交评分
                 </ModalHeader>
                 <ModalBody>
+                    <Rating label="美术" { ...register("art", { required: false }) } control={control}></Rating>
+                    <Rating label="音乐" name="music" control={control} className="mt-4"></Rating>
+                    <Rating label="叙事" name="story" control={control} className="mt-4"></Rating>
+                    <Rating label="创新" name="creativity" control={control} className="mt-4"></Rating>
+                    <Rating label="游戏性" name="gameplay" control={control} className="mt-4"></Rating>
                     <Slider 
                       name="score"
-                      label="评分" 
+                      label="综合体验" 
                       isRequired
                       color="foreground"
                       hideThumb={true}
@@ -92,18 +126,9 @@ function Grade({ game, afterGrade }) {
                       defaultValue={6}
                       control={control} 
                       errorMessage={ errors.score ? '评分在 0 - 10 之间，支持一位小数' : '' }
-                      className="max-w-md"
+                      className="max-w-md mt-4"
                     />
                     <Textarea {...register("comment")} label="评价" />
-                    <Accordion>
-                      <AccordionItem title={<span className="text-small">更多</span>}>
-                        <Rating label="美术" { ...register("art", { required: false }) } control={control}></Rating>
-                        <Rating label="音乐" name="music" control={control} className="mt-4"></Rating>
-                        <Rating label="叙事" name="story" control={control} className="mt-4"></Rating>
-                        <Rating label="创新" name="creativity" control={control} className="mt-4"></Rating>
-                        <Rating label="游戏性" name="gameplay" control={control} className="mt-4"></Rating>
-                      </AccordionItem>
-                    </Accordion>
                 </ModalBody>
                 <ModalFooter>
                   <Button type="submit"  onPress={submit}>

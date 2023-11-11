@@ -9,6 +9,7 @@ const store = makeAutoObservable({
       return null
     }
   },
+
 }, {
   update: action.bound
 })

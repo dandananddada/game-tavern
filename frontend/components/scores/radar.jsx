@@ -4,7 +4,7 @@ import { mean } from 'lodash';
 import 'react-svg-radar-chart/build/css/index.css'
 import radarStyle from './radar.module.css';
 
-export default function Radar({ score, showAverage = true }) {
+export default function Radar({ score, showAverage = false }) {
   if (!score) return null
   const captions = {
     art: '美术',

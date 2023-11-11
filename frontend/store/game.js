@@ -5,6 +5,7 @@ const store = makeAutoObservable({
   _shouldLogin: false,
   _shouldRegist: false,
   _shouldGrade: false,
+  _gameScore: {},
 
   get isLogin() {
     return this._isLogin
@@ -20,6 +21,10 @@ const store = makeAutoObservable({
 
   get shouldGrade () {
     return this._shouldGrade
+  },
+
+  get gameScore () {
+    return this._gameScore
   },
 
   update(keyOrBatch, value) {

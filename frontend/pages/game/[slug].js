@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import { observer } from 'mobx-react-lite';
 import Cookies from 'js-cookie';
 import moment from "moment";
-import { isEmpty, find } from 'lodash';
+import { isEmpty, find, remove, mean } from 'lodash';
 
 import Platform from '../games/components/platform';
 import GradeModal from "./components/grade";
@@ -32,17 +32,25 @@ const Game = ({ slug }) => {
     const game = await ajaxAPI(`/games/${slug}`)
     const developers = game.developers.map(i => i.name)
     const publishers = game.publishers.map(i => i.name)
-    const scoresRes = await fetchAPI(`/scores/game`, { game: slug })
-    const scores = scoresRes.results
     setGame({
       ...game,
       released: game.released.split('-').join('.'),
       developer: developers.join(', '),
       publisher: publishers.join(', ')
     })
-    const userScore = find(scores, ['users_permissions_user.username', user?.username]);
-    setCouldGrade(!userScore)
-    setScores(scores)
+    await initScores()
+  }
+
+  const initScores = async () => {
+    const scoresRes = await fetchAPI(`/scores/game`, { game: slug })
+    const scores = scoresRes.results
+    const userScore = remove(scores, ['users_permissions_user.username', user?.username]);
+    setCouldGrade(!userScore.length)
+    if (userScore) {
+      setScores(userScore.concat(scores));
+    } else {
+      setScores(scores)
+    }
   }
 
   useEffect(() => {
@@ -53,11 +61,14 @@ const Game = ({ slug }) => {
     init()
   }, [])
 
-  const grade = () => {
+  const grade = (score) => {
     if (!isLogin) {
       store.update('shouldLogin', true)
     } else {
       store.update('shouldGrade', true)
+    }
+    if (score) {
+      store.update('gameScore', score)
     }
   }
 
@@ -72,13 +83,7 @@ const Game = ({ slug }) => {
   }
 
   const afterGrade = (score) => {
-    scores.unshift({
-      ...score,
-      score: +score.score, // format to number
-      users_permissions_user: {
-        ...user
-      }
-    })
+    initScores()
     store.update('shouldGrade', false)
     setScores([...scores])
     setCouldGrade(false)
@@ -157,7 +162,8 @@ const Game = ({ slug }) => {
           </Tab>
           <Tab key="comment" title="评分">
             <div className="col-span-1">
-              <div className="text-right mx-4 pb-4 border-b-1 border-b-[#4C4A57]">
+              <div className="flex justify-between items-center mx-4 pb-4 border-b-1 border-b-[#4C4A57]">
+                <span className="text-md">{ game.name  }</span>
                 <Button
                   className="text-base h-10 px-4"
                   size="sm" color="primary"
@@ -171,20 +177,27 @@ const Game = ({ slug }) => {
               </div>
               <div className="grid grid-cols-1 mt-6">
                 { (scores || []).map(score => (<>
-                  <div className="flex ml-4 lg:col-span-1">
-                    <motion.button whileTap={{ scale: 0.8 }}>
-                      <Link href={`/member/${score.users_permissions_user?.email}`} key={user.id}>
-                        <UserAvatar user={score.users_permissions_user} />
-                      </Link>
-                    </motion.button>
-                    <div className="ml-2">
-                      <div className="text-sm text-white">{ score.users_permissions_user?.username }</div>
-                      <div className="text-sm text-light-black">{moment(score.createdAt).format('YYYY年MM月DD日 发表评论')}</div>
+                  <div className="flex justify-between mr-4">
+                    <div className="flex ml-4 lg:col-span-1">
+                      <motion.button whileTap={{ scale: 0.8 }}>
+                        <Link href={`/member/${score.users_permissions_user?.email}`} key={user.id}>
+                          <UserAvatar user={score.users_permissions_user} />
+                        </Link>
+                      </motion.button>
+                      <div className="ml-2">
+                        <div className="text-sm text-white">{ score.users_permissions_user?.username }</div>
+                        <div className="text-sm text-light-black">{moment(score.createdAt).format('YYYY年MM月DD日 发表评论')}</div>
+                      </div>
                     </div>
+                    { score.users_permissions_user?.id === user?.id && (
+                      <Button size="sm" onPress={() => grade(score)}>修改评分</Button>
+                    )}
                   </div>
+                 
                   <div className="mt-2 flex justify-center items-center lg:col-span-1 lg:justify-end">
-                    <span className="text-md text-white">评分</span>
-                    <div className="text-2xl text-white text-bold bg-apple-green ml-2 px-3 py-1/2 rounded">{score.score === 10 ? score.score : score.score.toFixed(1)}</div>
+                    <span className="text-md text-white">综合评分</span>
+                    <div className="text-2xl text-white text-bold bg-apple-green ml-2 px-3 py-1/2 rounded-md">{mean(Object.values(score.radar_score)).toFixed(1)}</div>
+                    {/* <div className="text-2xl text-white text-bold bg-apple-green ml-2 px-3 py-1/2 rounded">{score.score === 10 ? score.score : score.score.toFixed(1)}</div> */}
                   </div>
                   <div className="m-5 pb-6 border-b-1 border-b-[#4C4A57] last:border-b-0">
                     { !isEmpty(score.radar_score) && (
@@ -192,6 +205,10 @@ const Game = ({ slug }) => {
                         <RadarScore score={score.radar_score}></RadarScore>
                       </div>
                     ) }
+                    <div className="text-white text-sm mb-2">
+                      <span>综合体验: </span>
+                      <span className="text-base text-bold">{ score.score.toFixed(1) }</span>
+                    </div>
                     <div className="text-white text-sm">{score.comment || '什么都没说'}</div>
                   </div>
                 </>)) }
