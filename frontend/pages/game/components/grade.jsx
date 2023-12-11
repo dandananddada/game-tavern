@@ -6,7 +6,7 @@ import { fetchAPI } from "../../../lib/api"
 
 import {
   Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,
-  Button, Chip, Input, Textarea, Divider, Image,
+  Button, Textarea,
 } from "@nextui-org/react";
 import { useForm, Form } from "react-hook-form";
 import moment from "moment";

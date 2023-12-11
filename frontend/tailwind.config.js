@@ -16,6 +16,8 @@ module.exports = {
       colors: {
         'light-black': '#888',
         'tag-blue': '#59B9FF',
+        'button-blue': '#218FDF',
+        'background': '201F25',
         'back-brown': '#312F37',
         'apple-green': '#16AC13',
         'gray': '#9795AD'

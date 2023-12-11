@@ -7,11 +7,11 @@ import radarStyle from './radar.module.css';
 export default function Radar({ score, showAverage = false }) {
   if (!score) return null
   const captions = {
-    art: '美术',
-    music: '音乐',
-    story: '故事',
-    creativity: '创新',
-    gameplay: '游戏性'
+    art: `美术 ${score.art || ''}`,
+    music: `音乐 ${score.music || ''}`,
+    story: `故事 ${score.story || ''}`,
+    creativity: `创新 ${score.creativity || ''}`,
+    gameplay: `游戏性 ${score.gameplay || ''}`
   }
 
   const data = [
@@ -27,10 +27,10 @@ export default function Radar({ score, showAverage = false }) {
     }
   ]
 
-
   const options = {
     scales: 5,
     dots: true,
+    captionMargin: 18,
     shapeProps: () => ({
       className: 'fill-[#00B2FF3a] stroke-[#00B2FF] stroke-1/2',
     }),
