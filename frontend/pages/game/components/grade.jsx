@@ -3,7 +3,6 @@ import { observer } from 'mobx-react-lite';
 import Cookies from 'js-cookie';
 import { fetchAPI } from "../../../lib/api"
 
-
 import {
   Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,
   Button, Textarea,
@@ -22,7 +21,6 @@ function Grade({ game, afterGrade }) {
 
   useEffect(() => {
     if (gameScore) {
-      console.log(gameScore);
       setValue('comment', gameScore.comment)
       setValue('art', gameScore.radar_score?.art)
       setValue('music', gameScore.radar_score?.music)

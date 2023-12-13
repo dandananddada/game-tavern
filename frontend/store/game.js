@@ -5,6 +5,7 @@ const store = makeAutoObservable({
   _shouldLogin: false,
   _shouldRegist: false,
   _shouldGrade: false,
+  _shouldShare: false,
   _gameScore: {},
 
   get isLogin() {
@@ -21,6 +22,10 @@ const store = makeAutoObservable({
 
   get shouldGrade () {
     return this._shouldGrade
+  },
+
+  get shouldShare () {
+    return this._shouldShare
   },
 
   get gameScore () {

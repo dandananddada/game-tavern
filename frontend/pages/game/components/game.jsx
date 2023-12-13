@@ -1,16 +1,14 @@
-import { useState } from 'react';
+import React from 'react';
 import Platform from '../../games/components/platform';
 import Expand from '../../../components/expand';
 
 export default function ({ game }) {
 
-  const [expand, setExpand] = useState(false)
-
-  return (<>
-    <div className="grid grid-cols-1 px-4 lg:grid-cols-1 lg:w-[60%] lg:m-auto">
-    {/* background image and name */}
+  return (<div className="col-span-1">
+    <div className="px-4 ">
+      {/* background image and name */}
       <div className="flex">
-        <div className="w-[130px] h-[160px] mr-4 rounded-[16px] bg-center bg-cover bg-no-repeat"
+        <div className="min-w-[130px] h-[160px] mr-4 rounded-[16px] bg-center bg-cover bg-no-repeat"
           style={{
             backgroundImage: `url(${game.background_image})`
           }}
@@ -36,6 +34,7 @@ export default function ({ game }) {
         { game.stores.map(({ store }) => (<Platform storeSlug={store.slug} className="flex  mr-2" />)) }
       </div>
 
+      {/* generes */}
       <div className="text-left text-sm">
         <div className="mt-3 flex items-center">
           <div className="mt-2 text-light-black shrink-0">类型：</div>
@@ -48,9 +47,9 @@ export default function ({ game }) {
       </div>
     </div>
 
-    <Expand containerCls="w-full mt-4 px-4 py-4 bg-back-brown text-[#EEE]">
+    {/* description */}
+    <Expand containerCls="w-full mt-4 px-4 py-4 bg-back-brown text-[#EEE]" lines={3}>
       {game.description_raw}
     </Expand>
-
-  </>)
+  </div>)
 }

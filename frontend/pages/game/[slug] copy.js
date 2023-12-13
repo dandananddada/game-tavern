@@ -189,9 +189,10 @@ const Game = ({ slug }) => {
                         <div className="text-sm text-light-black">{moment(score.createdAt).format('YYYY年MM月DD日 发表评论')}</div>
                       </div>
                     </div>
-                    { score.users_permissions_user?.id === user?.id && (
-                      <Button size="sm" onPress={() => grade(score)}>修改评分</Button>
-                    )}
+                    { score.users_permissions_user?.id === user?.id && (<>
+                      <Button size="sm" onPress={() => grade(score)}>修改</Button>
+                      <Button size="sm" onPress={() => grade(score)}>分享</Button>
+                    </>)}
                   </div>
                  
                   <div className="mt-2 flex justify-center items-center lg:col-span-1 lg:justify-end">

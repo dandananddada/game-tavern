@@ -7,6 +7,7 @@ import { isEmpty } from 'lodash';
 
 import InfiniteScroll from 'react-infinite-scroller'
 
+import Expand from '../../components/expand';
 import UserAvatar from '../../components/user-avatar';
 import RadarScore from '../../components/scores/radar';
 
@@ -93,7 +94,7 @@ const Member = ({ user, slug }) => {
                 <Badge
                   content={score.score}
                   classNames={{
-                    badge: `text-sm w-10 h-6 pt-1/2 right-5 bottom-3 rounded-none rounded-tl-md
+                    badge: `text-sm w-10 h-6 pt-1/2 right-5 bottom-3 rounded-none rounded-tl rounded-br
                       ${computeColor(score.score)}
                     `
                   }}
@@ -116,9 +117,10 @@ const Member = ({ user, slug }) => {
                 </div>
               ) }
             </div>
-            <div className="mb-5 pb-3 border-b-1 border-b-[#4C4A57] last:border-b-0">
-              <div className="text-white text-sm">{score.comment || '什么都没说'}</div>
-            </div>
+
+            <Expand containerCls="mb-5 pb-3 border-b-1 border-b-[#4C4A57] last:border-b-0" lines={2}>
+              {score.comment}
+            </Expand>
         </> )) }
       </InfiniteScroll>
     </div>

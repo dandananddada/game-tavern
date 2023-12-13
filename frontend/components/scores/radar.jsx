@@ -48,7 +48,7 @@ export default function Radar({ score, showAverage = false }) {
     })
   }
 
-  return (<div className={`flex ${showAverage ? 'items-end' : 'items-center'} `}>
+  return (<div className={`flex justify-center ${showAverage ? 'items-end' : 'items-center'} `}>
     <RadarChart
       captions={captions}
       data={data}
