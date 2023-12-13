@@ -12,10 +12,11 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
+    "@blazity/next-image-proxy": "^1.0.2",
     "@nextui-org/react": "^2.2.3",
     "autoprefixer": "^10.4.16",
+    "dom-to-image": "^2.6.0",
     "framer-motion": "^10.16.4",
-    "html2canvas": "^1.4.1",
     "js-cookie": "^3.0.5",
     "lodash": "^4.17.21",
     "mobx": "^6.10.2",

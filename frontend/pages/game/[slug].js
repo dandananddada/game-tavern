@@ -162,7 +162,7 @@ return (<div className="dark">
                 </Button>
               </div>)}
             </div>
-            
+
             <div className="mt-2 flex justify-center items-center lg:col-span-1 lg:justify-end">
               <span className="text-md text-white">综合评分</span>
               <div className="text-2xl text-white text-bold bg-apple-green ml-2 px-3 py-1/2 rounded-md">{mean(Object.values(score.radar_score)).toFixed(1)}</div>
