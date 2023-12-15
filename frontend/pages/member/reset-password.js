@@ -35,7 +35,7 @@ const ResetPassword = () => {
     })
   }
 
-  return (<div className="flex flex-col justify-center h-[600px] mx-6">
+  return (<div className="flex flex-col justify-center h-[600px] mx-6 lg:max-w-[500px] lg:m-auto">
     <div className="flex justify-center mb-6">
       <Image width="200" src="http://9guan.games/uploads/gametavern_c9a856b309.png"></Image>
     </div>
