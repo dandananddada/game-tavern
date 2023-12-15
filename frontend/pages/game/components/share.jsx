@@ -22,21 +22,20 @@ function Share ({ game }) {
   const share = () => {
     const node = canvasRef.current
     setIsSharing(true)
-    dom2image.toPng(node, {
-      width: 2 * node.clientWidth,
-      height: 2 * node.clientHeight,
-      style: {
-        transform: 'scale(2)',
-        transformOrigin: 'top left'
-      }
-    }).then(dataUrl => {
-      const link = document.createElement('a');
-      link.download = `${game.name}.png`;
-      link.href = dataUrl;
-      setTimeout(() => {
+    dom2image.toPng(node).then(() => {
+      dom2image.toPng(node, {
+        width: 2 * node.clientWidth,
+        height: 2 * node.clientHeight,
+        style: {
+          transform: 'scale(2)',
+          transformOrigin: 'top left'
+        }
+      }).then(dataUrl => {
+        const link = document.createElement('a');
+        link.download = `${game.name}.png`;
+        link.href = dataUrl;
         link.click();
-        setIsSharing(false)
-      }, 5000)
+      })
     })
   }
 
@@ -61,7 +60,7 @@ function Share ({ game }) {
               <div className="bg-center bg-cover bg-no-repeat" style={{
                 backgroundImage: `url(/api/image-proxy?imageUrl=${game.background_image})`
               }}>
-                <div className="text-center pt-[260px]" style={gradientBGStyle}>
+                <div className="text-center pt-[220px]" style={gradientBGStyle}>
                   <div className="text-white text-2xl font-bold">{ game.name }</div>
 
                   {/* publish date and platforms */}

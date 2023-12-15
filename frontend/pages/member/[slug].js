@@ -118,7 +118,7 @@ const Member = ({ user, slug }) => {
               ) }
             </div>
 
-            <Expand containerCls="mb-5 pb-3 border-b-1 border-b-[#4C4A57] last:border-b-0" lines={2}>
+            <Expand containerCls="mb-5 pb-3 whitespace-pre-wrap border-b-1 border-b-[#4C4A57] last:border-b-0" lines={2}>
               {score.comment}
             </Expand>
         </> )) }

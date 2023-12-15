@@ -178,7 +178,7 @@ return (<div className="dark">
                 </div>
               )}
               { score.comment && (
-                <Expand lines={2}>
+                <Expand lines={2} containerCls="whitespace-pre-wrap">
                   { score.comment }
                 </Expand>
               ) }
