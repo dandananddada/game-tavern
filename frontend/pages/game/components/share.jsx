@@ -22,7 +22,14 @@ function Share ({ game }) {
   const share = () => {
     const node = canvasRef.current
     setIsSharing(true)
-    dom2image.toPng(node).then(() => {
+    dom2image.toPng(node,  {
+      width: 2 * node.clientWidth,
+      height: 2 * node.clientHeight,
+      style: {
+        transform: 'scale(2)',
+        transformOrigin: 'top left'
+      }
+    }).then(() => {
       dom2image.toPng(node, {
         width: 2 * node.clientWidth,
         height: 2 * node.clientHeight,
@@ -35,6 +42,7 @@ function Share ({ game }) {
         link.download = `${game.name}.png`;
         link.href = dataUrl;
         link.click();
+        setIsSharing(false)
       })
     })
   }
