@@ -23,8 +23,8 @@ import userStore from '../../store/user';
 import Expand from '../../components/expand';
 
 const Game = ({ slug }) => {
-const { isLogin, shouldLogin, shouldRegist } = store
-const { user } = userStore
+const { shouldLogin, shouldRegist } = store
+const { user, isLogin } = userStore
 
 const [game, setGame] = useState()
 const [scores, setScores] = useState()
@@ -56,9 +56,8 @@ const initScores = async () => {
 }
 
 useEffect(() => {
-  const isAuthed = (![undefined, null, ''].includes(Cookies.get('jwt')))
   store.update({
-    isLogin: isAuthed, shouldLogin: !isAuthed
+    isLogin, shouldLogin: !isLogin
   })
   init()
 }, [])
@@ -82,9 +81,7 @@ const share = (score) => {
 const afterLoginOrRegist = (jwt, user) => {
   Cookies.set('jwt', jwt, { expires: 7 })
   Cookies.set('user', JSON.stringify(user), { expires: 7 })
-  store.update({
-    isLogin: true
-  })
+  userStore.login()
   const userScore = find(scores, ['users_permissions_user.username', user?.username]);
   setCouldGrade(!userScore)
 }
@@ -174,10 +171,12 @@ return (<div className="dark">
                   <RadarScore score={score.radar_score}></RadarScore>
                 </div>
               ) }
-              <div className="text-white text-sm mb-2">
-                <span>主观体验:  </span>
-                <span className="text-base text-bold">{ score.score.toFixed(1) }</span>
-              </div>
+              { +score.score !== 0 && (
+                <div className="text-white text-sm mb-2">
+                  <span>主观体验:  </span>
+                  <span className="text-base text-bold">{ score.score.toFixed(1) }</span>
+                </div>
+              )}
               { score.comment && (
                 <Expand lines={2}>
                   { score.comment }

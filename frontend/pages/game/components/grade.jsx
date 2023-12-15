@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { observer } from 'mobx-react-lite';
 import Cookies from 'js-cookie';
 import { fetchAPI } from "../../../lib/api"
@@ -18,6 +18,7 @@ import store from '../../../store/game';
 function Grade({ game, afterGrade }) {
   const { shouldGrade, gameScore } = store
   const { register, handleSubmit, setValue, control, formState: { errors } } = useForm();
+  const [isSubmiting, setIsSubmiting] = useState(false)
 
   useEffect(() => {
     if (gameScore) {
@@ -37,6 +38,7 @@ function Grade({ game, afterGrade }) {
   }
 
   const grade = async (formData) => {
+    setIsSubmiting(true)
     const { art, music, story, creativity, gameplay, score, comment } = formData
     const { 
       slug, name, released, background_image, stores: platforms, genres,
@@ -64,6 +66,7 @@ function Grade({ game, afterGrade }) {
       })
       if (res.data.id) {
         afterGrade(formData)
+        setIsSubmiting(false)
       }
     } else {
       const res = await fetchAPI('/score/grade', {}, {
@@ -88,6 +91,7 @@ function Grade({ game, afterGrade }) {
         afterGrade({ score, comment, radar_score: 
           { art, music, story, creativity, gameplay }
         })
+        setIsSubmiting(false)
       }
     }
   }
@@ -121,7 +125,7 @@ function Grade({ game, afterGrade }) {
                       step={0.2} 
                       maxValue={10} 
                       minValue={0} 
-                      defaultValue={6}
+                      defaultValue={0}
                       control={control} 
                       errorMessage={ errors.score ? '评分在 0 - 10 之间，支持一位小数' : '' }
                       className="max-w-md mt-4"
@@ -129,7 +133,7 @@ function Grade({ game, afterGrade }) {
                     <Textarea {...register("comment")} label="评价" />
                 </ModalBody>
                 <ModalFooter>
-                  <Button type="submit"  onPress={submit}>
+                  <Button type="submit" onPress={submit} isLoading={isSubmiting}>
                     提交评分
                   </Button>
                   <Button color="default" variant="light" onPress={onClose}>

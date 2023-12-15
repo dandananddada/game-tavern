@@ -30,7 +30,7 @@ function Share ({ game }) {
         transformOrigin: 'top left'
       }
     }).then(dataUrl => {
-      var link = document.createElement('a');
+      const link = document.createElement('a');
       link.download = `${game.name}.png`;
       link.href = dataUrl;
       link.click();
