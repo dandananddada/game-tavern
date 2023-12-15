@@ -33,8 +33,10 @@ function Share ({ game }) {
       const link = document.createElement('a');
       link.download = `${game.name}.png`;
       link.href = dataUrl;
-      link.click();
-      setIsSharing(false)
+      setTimeout(() => {
+        link.click();
+        setIsSharing(false)
+      }, 5000)
     })
   }
 
@@ -81,7 +83,7 @@ function Share ({ game }) {
 
                   <div className="w-32 m-auto my-6 py-2 rounded-md bg-[#201f25]/80">
                     <span className="text-md text-[#D7D7D7]">综合评分</span>
-                    <p className="text-2xl text-bold text-[#2CFF28]">
+                    <p className="text-2xl font-bold text-[#2CFF28]">
                       {mean(Object.values(score.radar_score)).toFixed(1)}
                     </p>
                     {/* <div className="w-28 m-auto mt-4 py-6 rounded-sm bg-white/10 blur-sm"></div> */}
