@@ -115,7 +115,6 @@ return (<div className="dark">
   <GradeModal game={game} afterGrade={afterGrade} />
   <ShareModal game={game} />
 
-
   <div className="grid grid-cols-1 lg:grid-cols-2 max-w-6xl m-auto">
     <GameBase game={game}></GameBase>
     <div className="col-span-1 mt-6 lg:mt-0 lg:ml-5 lg:pl-5 lg:border-l-[#4C4A57] lg:border-l-1">

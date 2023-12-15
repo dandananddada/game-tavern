@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Spinner, Card, Badge, Chip } from "@nextui-org/react";
 import moment from "moment";
-import { isEmpty } from 'lodash';
+import { isEmpty, mean } from 'lodash';
 
 import InfiniteScroll from 'react-infinite-scroller'
 
@@ -92,7 +92,7 @@ const Member = ({ user, slug }) => {
             <div className="flex justify-between align-center">
               <div className="flex items-center">
                 <Badge
-                  content={score.score}
+                  content={mean(Object.values(score.radar_score)).toFixed(1)}
                   classNames={{
                     badge: `text-sm w-10 h-6 pt-1/2 right-5 bottom-3 rounded-none rounded-tl rounded-br
                       ${computeColor(score.score)}
