@@ -36,7 +36,7 @@ const init = async () => {
   const publishers = game.publishers.map(i => i.name)
   setGame({
     ...game,
-    released: game.released.split('-').join('.'),
+    released: game?.released?.split('-').join('.'),
     developer: developers.join(', '),
     publisher: publishers.join(', ')
   })

@@ -15,11 +15,13 @@ export default function ({ game }) {
         ></div> 
         <div className="flex flex-col justify-between">
           <div className="text-left text-white text-xl font-bold">{ game.name }</div>
-          <div className="text-xs">  
-            <div className="mt-2">
-              <span className="text-light-black">开发：</span>
-              <span className="text-white">{ game.developer }</span>
-            </div>
+          <div className="text-xs">
+            { game.developer && (
+              <div className="mt-2">
+                <span className="text-light-black">开发：</span>
+                <span className="text-white">{ game.developer }</span>
+              </div>
+            ) }
             <div className="mt-2">
               <span className="text-light-black">发行：</span>
               <span className="text-white">{ game.publisher }</span>
@@ -29,7 +31,9 @@ export default function ({ game }) {
       </div>
 
       {/* publish date and platforms */}
-      <div className="text-left text-sm text-light-black mt-3">发售日期：{ game.released }</div>
+      { game.released && (
+        <div className="text-left text-sm text-light-black mt-3">发售日期：{ game.released }</div>
+      ) }
       <div className="flex justify-start mt-2">
         { game.stores.map(({ store }) => (<Platform storeSlug={store.slug} className="flex  mr-2" />)) }
       </div>
@@ -48,8 +52,10 @@ export default function ({ game }) {
     </div>
 
     {/* description */}
-    <Expand containerCls="w-full mt-4 px-4 py-4 bg-back-brown text-[#EEE]" lines={3}>
-      {game.description_raw}
-    </Expand>
+    { game.description_raw && (
+      <Expand containerCls="w-full mt-4 px-4 py-4 bg-back-brown text-[#EEE]" lines={3}>
+        {game.description_raw}
+      </Expand>
+    ) }
   </div>)
 }
