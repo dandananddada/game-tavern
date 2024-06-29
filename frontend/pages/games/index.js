@@ -160,7 +160,7 @@ const Article = ({ games: initGames }) => {
         <div className="m-4 mt-0 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 lg:gap-[40px] lg:max-w-[1240px] xl:max-w-[1560px] lg:m-auto">
           { games.map((game, idx) => (
             <div className={`w-full mb-10 col-span-1 ${idx === 0 ? 'col-end-2' : null}`}>
-              <Link href={`/game/${game.slug}`} key={game.id}>
+              <Link href={`/game/${game.slug}`} key={game.id} target="_blank">
                 <Card isPressable
                   className="w-40 h-52 m-auto rounded bg-center bg-cover bg-no-repeat lg:w-[280px] lg:h-[300px]"
                   style={{
