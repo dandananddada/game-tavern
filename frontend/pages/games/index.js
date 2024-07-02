@@ -6,7 +6,7 @@ import InfiniteScroll from 'react-infinite-scroller'
 
 import { ajaxAPI, fetchAPI } from "../../lib/api"
 import Platform from './components/platform'
-import { SearchIcon } from "../../components/icons"
+import { SearchIcon, CalendarIcon } from "../../components/icons"
 
 import userStore from '../../store/user';
 
@@ -110,6 +110,11 @@ const Article = ({ games: initGames }) => {
           { isLogin && <Tab key="user" title="我已评分"/> }
           <Tab key="all" title="全部游戏"/>
         </Tabs>
+      </div>
+      <div className="col-span-1">
+        <div className="flex justify-end items-center h-full pr-2">
+          <a href="/calendar" className="text-xs text-light-black" target="_blank">发布日历</a>
+        </div>
       </div>
     </div>
     
