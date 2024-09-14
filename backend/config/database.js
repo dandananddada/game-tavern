@@ -75,7 +75,7 @@ module.exports = ({ env }) => {
         filename: path.join(
           __dirname,
           '..',
-          env('DATABASE_FILENAME', '.tmp/data.db')
+          env('DATABASE_FILENAME', 'database/data.db')
         ),
       },
       useNullAsDefault: true,
@@ -84,7 +84,7 @@ module.exports = ({ env }) => {
 
   return {
     connection: {
-      client: 'mysql2',
+      client,
       ...connections[client],
       acquireConnectionTimeout: env.int('DATABASE_CONNECTION_TIMEOUT', 60000),
     },
