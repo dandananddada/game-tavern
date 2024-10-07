@@ -84,7 +84,7 @@ module.exports = ({ env }) => {
 
   return {
     connection: {
-      client,
+      client: 'mysql2',
       ...connections[client],
       acquireConnectionTimeout: env.int('DATABASE_CONNECTION_TIMEOUT', 60000),
     },
