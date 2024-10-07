@@ -1,0 +1,18 @@
+{
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/api/image-proxy": "pages/api/image-proxy.js",
+  "/calendar/[slug]": "pages/calendar/[slug].js",
+  "/calendar": "pages/calendar.js",
+  "/game/[slug]": "pages/game/[slug].js",
+  "/game/components/game": "pages/game/components/game.js",
+  "/game/components/grade": "pages/game/components/grade.js",
+  "/game/components/share": "pages/game/components/share.js",
+  "/games/components/logo": "pages/games/components/logo.js",
+  "/games/components/platform": "pages/games/components/platform.js",
+  "/games": "pages/games.js",
+  "/": "pages/index.js",
+  "/member/[slug]": "pages/member/[slug].js",
+  "/member/reset-password": "pages/member/reset-password.js",
+  "/_error": "pages/_error.js"
+}
