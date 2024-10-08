@@ -19,6 +19,7 @@ module.exports = createCoreService('api::score.score', ({ strapi }) => ({
       gameRes = await strapi.service('api::game.game').create({
         data: {
           ...props,
+          /*
           platforms: {
             // connect: platforms,
             connect: [1, 2, 3]
@@ -27,6 +28,7 @@ module.exports = createCoreService('api::score.score', ({ strapi }) => ({
             // connect: genres
             connect: [1]
           }
+          */
         }
       })
     }
