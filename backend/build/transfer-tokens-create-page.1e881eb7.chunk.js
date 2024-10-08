@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkgame_tavern=self.webpackChunkgame_tavern||[]).push([[4816],{81524:(o,t,e)=>{e.r(t),e.d(t,{default:()=>a});var s=e(67294),n=e(80621),r=e(86706),E=e(36364),_=e(43467);const a=()=>{const P=(0,r.useSelector)(E._);return s.createElement(n.CheckPagePermissions,{permissions:P.settings["transfer-tokens"].create},s.createElement(_.Z,null))}}}]);
